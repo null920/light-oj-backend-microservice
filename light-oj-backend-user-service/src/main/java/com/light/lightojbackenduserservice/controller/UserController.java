@@ -32,7 +32,7 @@ import static com.light.lightojbackenduserservice.service.impl.UserServiceImpl.S
  * 用户接口
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/")
 @Slf4j
 public class UserController {
 
