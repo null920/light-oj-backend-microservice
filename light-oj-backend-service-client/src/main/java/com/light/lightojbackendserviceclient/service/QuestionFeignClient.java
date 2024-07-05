@@ -11,23 +11,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * 题目服务
  */
-@FeignClient(name = "light-oj-backend-question-service", path = "/api/question")
+@FeignClient(name = "light-oj-backend-question-service", path = "/api/question/inner")
 public interface QuestionFeignClient {
 
-    /**
-     * 校验
-     *
-     * @param question
-     * @param add
-     */
-    void validQuestion(Question question, boolean add);
-
+    //    /**
+//     * 校验
+//     *
+//     * @param question
+//     * @param add
+//     */
+//    void validQuestion(Question question, boolean add);
     @GetMapping("/get/id")
     Question getQuestionById(@RequestParam("questionId") long questionId);
 
 
     @GetMapping("/question_submit/get/id")
-    Question getQuestionSubmitById(@RequestParam("questionSubmitId") long questionSubmitId);
+    QuestionSubmit getQuestionSubmitById(@RequestParam("questionSubmitId") long questionSubmitId);
 
     @PostMapping("/question_submit/update")
     boolean updateQuestionSubmitById(@RequestBody QuestionSubmit questionSubmit);

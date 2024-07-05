@@ -19,7 +19,7 @@ import static com.light.lightojbackendcommon.constant.UserConstant.USER_LOGIN_ST
 /**
  * 用户服务
  */
-@FeignClient(name = "light-oj-backend-user-service", path = "/api/user")
+@FeignClient(name = "light-oj-backend-user-service", path = "/api/user/inner")
 public interface UserFeignClient {
 
     /**

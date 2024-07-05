@@ -21,7 +21,7 @@ import com.light.lightojbackendmodel.model.vo.UserVO;
 import com.light.lightojbackendquestionservice.mapper.QuestionSubmitMapper;
 import com.light.lightojbackendquestionservice.service.QuestionService;
 import com.light.lightojbackendquestionservice.service.QuestionSubmitService;
-import com.light.lightojbackendserviceclient.service.UserService;
+import com.light.lightojbackendserviceclient.service.UserFeignClient;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +45,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     private QuestionService questionService;
 
     @Resource
-    private UserService userService;
+    private UserFeignClient userFeignClient;
 
     @Override
     public void validQuestionSubmit(QuestionSubmit questionSubmit, boolean add) {
@@ -126,13 +126,13 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         Long userId = questionSubmit.getUserId();
         User user = null;
         if (userId != null && userId > 0) {
-            user = userService.getById(userId);
+            user = userFeignClient.getById(userId);
         }
-        User loginUser = userService.getLoginUser(request);
-        if (!loginUser.getId().equals(userId) && !userService.isAdmin(loginUser)) {
+        User loginUser = userFeignClient.getLoginUser(request);
+        if (!loginUser.getId().equals(userId) && !userFeignClient.isAdmin(loginUser)) {
             questionSubmitVO.setCode(null);
         }
-        UserVO userVO = userService.getUserVO(user);
+        UserVO userVO = userFeignClient.getUserVO(user);
         questionSubmitVO.setSubmitterUserVO(userVO);
         return questionSubmitVO;
     }
@@ -147,10 +147,10 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         // 1. 关联查询用户信息
         Set<Long> userIdSet = questionSubmitList.stream().map(QuestionSubmit::getUserId).collect(Collectors.toSet());
         Set<Long> questionIdSet = questionSubmitList.stream().map(QuestionSubmit::getQuestionId).collect(Collectors.toSet());
-        Map<Long, List<User>> userIdUserListMap = userService.listByIds(userIdSet).stream()
+        Map<Long, List<User>> userIdUserListMap = userFeignClient.listByIds(userIdSet).stream()
                 .collect(Collectors.groupingBy(User::getId));
         Map<Long, List<Question>> questionIdListMap = questionService.listByIds(questionIdSet).stream().collect(Collectors.groupingBy(Question::getId));
-        User loginUser = userService.getLoginUser(request);
+        User loginUser = userFeignClient.getLoginUser(request);
         // 填充信息
         List<QuestionSubmitVO> questionSubmitVOList = questionSubmitList.stream().map(questionSubmit -> {
             QuestionSubmitVO questionSubmitVO = QuestionSubmitVO.objToVo(questionSubmit);
@@ -164,10 +164,10 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
             if (questionIdListMap.containsKey(questionId)) {
                 question = questionIdListMap.get(questionId).get(0);
             }
-            if (!loginUser.getId().equals(userId) && !userService.isAdmin(loginUser)) {
+            if (!loginUser.getId().equals(userId) && !userFeignClient.isAdmin(loginUser)) {
                 questionSubmitVO.setCode(null);
             }
-            questionSubmitVO.setSubmitterUserVO(userService.getUserVO(user));
+            questionSubmitVO.setSubmitterUserVO(userFeignClient.getUserVO(user));
             questionSubmitVO.setQuestionVO(QuestionVO.objToVo(question));
             return questionSubmitVO;
         }).collect(Collectors.toList());

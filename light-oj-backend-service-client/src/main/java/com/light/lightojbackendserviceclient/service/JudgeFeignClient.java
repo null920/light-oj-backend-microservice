@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author null&&
  * @Date 2024/6/22 18:49
  */
-@FeignClient(name = "light-oj-backend-judge-service", path = "/api/judge")
+@FeignClient(name = "light-oj-backend-judge-service", path = "/api/judge/inner")
 public interface JudgeFeignClient {
 
     /**

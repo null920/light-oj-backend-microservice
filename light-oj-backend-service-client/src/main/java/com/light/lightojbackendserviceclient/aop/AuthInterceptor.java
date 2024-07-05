@@ -5,7 +5,7 @@ import com.light.lightojbackendcommon.common.ErrorCode;
 import com.light.lightojbackendcommon.exception.BusinessException;
 import com.light.lightojbackendmodel.model.entity.User;
 import com.light.lightojbackendmodel.model.enums.UserRoleEnum;
-import com.light.lightojbackendserviceclient.service.UserService;
+import com.light.lightojbackendserviceclient.service.UserFeignClient;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 public class AuthInterceptor {
 
     @Resource
-    private UserService userService;
+    private UserFeignClient userFeignClient;
 
     /**
      * 执行拦截
@@ -40,7 +40,7 @@ public class AuthInterceptor {
         RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         // 当前登录用户
-        User loginUser = userService.getLoginUser(request);
+        User loginUser = userFeignClient.getLoginUser(request);
         UserRoleEnum mustRoleEnum = UserRoleEnum.getEnumByValue(mustRole);
         // 不需要权限，放行
         if (mustRoleEnum == null) {
