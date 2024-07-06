@@ -1,6 +1,6 @@
 package com.light.lightojbackendjudgeservice.controller.inner;
 
-import com.light.lightojbackendjudgeservice.judge.JudgeService;
+import com.light.lightojbackendjudgeservice.service.JudgeService;
 import com.light.lightojbackendmodel.model.entity.QuestionSubmit;
 import com.light.lightojbackendserviceclient.service.JudgeFeignClient;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class JudgeManager {
 
-    JudgeInfo doJudge(JudgeContext judgeContext) {
+    public JudgeInfo doJudge(JudgeContext judgeContext) {
         QuestionSubmit questionSubmit = judgeContext.getQuestionSubmit();
         String language = questionSubmit.getLanguage();
         JudgeStrategy judgeStrategy = new DefaultJudgeStrategy();

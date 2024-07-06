@@ -1,4 +1,4 @@
-package com.light.lightojbackendjudgeservice.judge;
+package com.light.lightojbackendjudgeservice.service;
 
 
 import com.light.lightojbackendmodel.model.entity.QuestionSubmit;
