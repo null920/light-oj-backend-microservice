@@ -19,8 +19,10 @@ import com.light.lightojbackendmodel.model.vo.QuestionSubmitVO;
 import com.light.lightojbackendmodel.model.vo.QuestionVO;
 import com.light.lightojbackendmodel.model.vo.UserVO;
 import com.light.lightojbackendquestionservice.mapper.QuestionSubmitMapper;
+import com.light.lightojbackendquestionservice.mq.message.MessageProducer;
 import com.light.lightojbackendquestionservice.service.QuestionService;
 import com.light.lightojbackendquestionservice.service.QuestionSubmitService;
+import com.light.lightojbackendserviceclient.service.JudgeFeignClient;
 import com.light.lightojbackendserviceclient.service.UserFeignClient;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
@@ -46,6 +48,12 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
 
     @Resource
     private UserFeignClient userFeignClient;
+
+    @Resource
+    private JudgeFeignClient judgeFeignClient;
+
+    @Resource
+    private MessageProducer messageProducer;
 
     @Override
     public void validQuestionSubmit(QuestionSubmit questionSubmit, boolean add) {
@@ -86,7 +94,13 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         if (!save) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "题目提交失败");
         }
-        return questionSubmit.getId();
+        Long questionSubmitId = questionSubmit.getId();
+        // 提交题目完成后，异步执行判题
+        messageProducer.sendMessage("code_exchange", "null_routingKey", String.valueOf(questionSubmitId));
+//        CompletableFuture.runAsync(() -> {
+//            judgeFeignClient.doJudge(questionSubmitId);
+//        });
+        return questionSubmitId;
     }
 
 

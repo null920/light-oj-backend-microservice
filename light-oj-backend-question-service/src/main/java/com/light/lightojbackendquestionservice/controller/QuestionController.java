@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * 题目接口
@@ -300,9 +299,8 @@ public class QuestionController {
         }
         // 登录才能提交
         final User loginUser = userFeignClient.getLoginUser(request);
-        long questionSubmitId = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
         // 执行判题服务
-        CompletableFuture.runAsync(() -> questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser));
+        long questionSubmitId = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
         return ResultUtils.success(questionSubmitId);
     }
 
