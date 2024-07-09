@@ -1,4 +1,4 @@
-package com.light.lightojbackendjudgeservice.judge.codesandbox.impl;
+package com.light.lightojbackendjudgeservice.codesandbox.impl;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
@@ -6,9 +6,10 @@ import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
 import com.light.lightojbackendcommon.common.ErrorCode;
 import com.light.lightojbackendcommon.exception.BusinessException;
-import com.light.lightojbackendjudgeservice.judge.codesandbox.CodeSandbox;
+import com.light.lightojbackendjudgeservice.codesandbox.CodeSandbox;
 import com.light.lightojbackendmodel.model.codesandbox.ExecuteCodeRequest;
 import com.light.lightojbackendmodel.model.codesandbox.ExecuteCodeResponse;
+import org.springframework.beans.factory.annotation.Value;
 
 /**
  * 远程代码沙箱（实际调用接口的代码沙箱）
@@ -22,10 +23,12 @@ public class RemoteCodeSandbox implements CodeSandbox {
 
     private static final String AUTH_REQUEST_SECRET = "null920_secret_key";
 
+    @Value("${codesandbox.remote.url}")
+    private String url;
+
     @Override
     public ExecuteCodeResponse executeCode(ExecuteCodeRequest executeRequest) {
         System.out.println("远程代码沙箱");
-        String url = "http://localhost:9630/executeCode";
         /*
          * 1. 将用户输入的代码、编程语言、输入数据、题目信息封装成 JSON
          * 2. 调用远程接口

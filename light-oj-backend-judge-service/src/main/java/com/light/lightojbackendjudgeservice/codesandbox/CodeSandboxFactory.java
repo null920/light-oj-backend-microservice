@@ -1,8 +1,8 @@
-package com.light.lightojbackendjudgeservice.judge.codesandbox;
+package com.light.lightojbackendjudgeservice.codesandbox;
 
-import com.light.lightojbackendjudgeservice.judge.codesandbox.impl.ExampleCodeSandbox;
-import com.light.lightojbackendjudgeservice.judge.codesandbox.impl.RemoteCodeSandbox;
-import com.light.lightojbackendjudgeservice.judge.codesandbox.impl.ThirdPartyCodeSandbox;
+import com.light.lightojbackendjudgeservice.codesandbox.impl.ExampleCodeSandbox;
+import com.light.lightojbackendjudgeservice.codesandbox.impl.RemoteCodeSandbox;
+import com.light.lightojbackendjudgeservice.codesandbox.impl.ThirdPartyCodeSandbox;
 
 /**
  * 代码沙箱工厂（线程安全的单例工厂模式）

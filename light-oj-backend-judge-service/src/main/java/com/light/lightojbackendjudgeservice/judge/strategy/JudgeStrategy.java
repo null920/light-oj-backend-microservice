@@ -13,8 +13,8 @@ public interface JudgeStrategy {
     /**
      * 执行判题
      *
-     * @param judgeContext
-     * @return
+     * @param judgeContext 判题上下文
+     * @return 判题信息
      */
     JudgeInfo doJudge(JudgeContext judgeContext);
 }

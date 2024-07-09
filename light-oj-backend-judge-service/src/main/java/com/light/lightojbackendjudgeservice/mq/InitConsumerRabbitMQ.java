@@ -1,4 +1,4 @@
-package com.light.lightojbackendquestionservice.mq;
+package com.light.lightojbackendjudgeservice.mq;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "spring.rabbitmq")
 @Data
-public class InitRabbitMQ implements ApplicationRunner {
+public class InitConsumerRabbitMQ implements ApplicationRunner {
 
     private String host;
 

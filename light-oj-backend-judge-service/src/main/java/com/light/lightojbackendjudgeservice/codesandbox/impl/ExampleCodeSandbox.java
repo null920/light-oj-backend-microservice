@@ -1,7 +1,7 @@
-package com.light.lightojbackendjudgeservice.judge.codesandbox.impl;
+package com.light.lightojbackendjudgeservice.codesandbox.impl;
 
 
-import com.light.lightojbackendjudgeservice.judge.codesandbox.CodeSandbox;
+import com.light.lightojbackendjudgeservice.codesandbox.CodeSandbox;
 import com.light.lightojbackendmodel.model.codesandbox.ExecuteCodeRequest;
 import com.light.lightojbackendmodel.model.codesandbox.ExecuteCodeResponse;
 import com.light.lightojbackendmodel.model.codesandbox.JudgeInfo;

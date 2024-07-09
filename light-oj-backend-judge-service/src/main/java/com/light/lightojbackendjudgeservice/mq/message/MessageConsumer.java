@@ -34,11 +34,15 @@ public class MessageConsumer {
     public void receiveMessage(String message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) {
         log.info("receive message: {}", message);
         long questionSubmitId = Long.parseLong(message);
+        if (questionSubmitId <= 0) {
+            channel.basicNack(deliveryTag, false, false);
+            return;
+        }
         try {
             judgeService.doJudge(questionSubmitId);
             channel.basicAck(deliveryTag, false);
         } catch (Exception e) {
-            channel.basicNack(deliveryTag, false, true);
+            channel.basicNack(deliveryTag, false, false);
         }
     }
 }

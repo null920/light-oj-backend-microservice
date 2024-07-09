@@ -1,4 +1,4 @@
-package com.light.lightojbackendjudgeservice.judge.codesandbox;
+package com.light.lightojbackendjudgeservice.codesandbox;
 
 
 import com.light.lightojbackendmodel.model.codesandbox.ExecuteCodeRequest;

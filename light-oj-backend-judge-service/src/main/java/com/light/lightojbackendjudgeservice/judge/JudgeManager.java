@@ -1,7 +1,7 @@
 package com.light.lightojbackendjudgeservice.judge;
 
-import com.light.lightojbackendjudgeservice.judge.strategy.DefaultJudgeStrategy;
-import com.light.lightojbackendjudgeservice.judge.strategy.JavaLanguageJudgeStrategy;
+import com.light.lightojbackendjudgeservice.judge.strategy.impl.DefaultJudgeStrategy;
+import com.light.lightojbackendjudgeservice.judge.strategy.impl.JavaLanguageJudgeStrategy;
 import com.light.lightojbackendjudgeservice.judge.strategy.JudgeContext;
 import com.light.lightojbackendjudgeservice.judge.strategy.JudgeStrategy;
 import com.light.lightojbackendmodel.model.codesandbox.JudgeInfo;

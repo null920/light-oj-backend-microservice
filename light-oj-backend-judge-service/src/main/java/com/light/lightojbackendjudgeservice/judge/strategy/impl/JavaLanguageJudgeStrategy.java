@@ -1,6 +1,8 @@
-package com.light.lightojbackendjudgeservice.judge.strategy;
+package com.light.lightojbackendjudgeservice.judge.strategy.impl;
 
 import cn.hutool.json.JSONUtil;
+import com.light.lightojbackendjudgeservice.judge.strategy.JudgeContext;
+import com.light.lightojbackendjudgeservice.judge.strategy.JudgeStrategy;
 import com.light.lightojbackendmodel.model.codesandbox.JudgeInfo;
 import com.light.lightojbackendmodel.model.dto.question.JudgeCase;
 import com.light.lightojbackendmodel.model.dto.question.JudgeConfig;
@@ -10,7 +12,7 @@ import com.light.lightojbackendmodel.model.enums.JudgeInfoMessageEnum;
 import java.util.List;
 
 /**
- * 默认判题策略
+ * Java 判题策略
  *
  * @author null&&
  * @Date 2024/6/23 16:17
