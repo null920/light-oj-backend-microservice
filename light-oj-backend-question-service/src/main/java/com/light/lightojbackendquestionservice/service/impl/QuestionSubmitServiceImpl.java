@@ -22,7 +22,6 @@ import com.light.lightojbackendquestionservice.mapper.QuestionSubmitMapper;
 import com.light.lightojbackendquestionservice.mq.message.MessageProducer;
 import com.light.lightojbackendquestionservice.service.QuestionService;
 import com.light.lightojbackendquestionservice.service.QuestionSubmitService;
-import com.light.lightojbackendserviceclient.service.JudgeFeignClient;
 import com.light.lightojbackendserviceclient.service.UserFeignClient;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
@@ -48,9 +47,6 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
 
     @Resource
     private UserFeignClient userFeignClient;
-
-    @Resource
-    private JudgeFeignClient judgeFeignClient;
 
     @Resource
     private MessageProducer messageProducer;

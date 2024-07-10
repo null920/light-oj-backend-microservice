@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: light-oj-backend-gateway
+  profiles:
+    active: prod
+  #  main:
+  #    web-application-type: reactive
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      routes: # 配置路由规则
+        - id: light-oj-backend-judge-service
+          uri: lb://light-oj-backend-judge-service
+          predicates:
+            - Path=/api/judge/**
+        - id: light-oj-backend-question-service
+          uri: lb://light-oj-backend-question-service
+          predicates:
+            - Path=/api/question/**
+        - id: light-oj-backend-user-service
+          uri: lb://light-oj-backend-user-service
+          predicates:
+            - Path=/api/user/**
+server:
+  port: 8101

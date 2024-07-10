@@ -7,5 +7,5 @@ knife4j:
     discover:
       # ③ 第三行配置，开启discover模式
       enabled: true
-      # ④ 第四行配置，聚合子服务全部为Swagger2规范的文档
+      # ④ 第四行配置，聚合子服务全部为 Swagger2 规范的文档
       version: swagger2

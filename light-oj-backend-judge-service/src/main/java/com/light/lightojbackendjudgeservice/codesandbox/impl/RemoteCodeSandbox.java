@@ -9,7 +9,10 @@ import com.light.lightojbackendcommon.exception.BusinessException;
 import com.light.lightojbackendjudgeservice.codesandbox.CodeSandbox;
 import com.light.lightojbackendmodel.model.codesandbox.ExecuteCodeRequest;
 import com.light.lightojbackendmodel.model.codesandbox.ExecuteCodeResponse;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
+import org.springframework.core.io.ClassPathResource;
+
+import java.util.Properties;
 
 /**
  * 远程代码沙箱（实际调用接口的代码沙箱）
@@ -18,16 +21,19 @@ import org.springframework.beans.factory.annotation.Value;
  * @Date 2024/6/21 19:15
  */
 public class RemoteCodeSandbox implements CodeSandbox {
+    private String url;
 
     private static final String AUTH_REQUEST_HEADER = "auth";
 
     private static final String AUTH_REQUEST_SECRET = "null920_secret_key";
 
-    @Value("${codesandbox.remote.url}")
-    private String url;
-
     @Override
     public ExecuteCodeResponse executeCode(ExecuteCodeRequest executeRequest) {
+        YamlPropertiesFactoryBean factory = new YamlPropertiesFactoryBean();
+        factory.setResources(new ClassPathResource("application.yml"));
+        Properties properties = factory.getObject();
+        this.url = properties.getProperty("codesandbox.url");
+
         System.out.println("远程代码沙箱");
         /*
          * 1. 将用户输入的代码、编程语言、输入数据、题目信息封装成 JSON
