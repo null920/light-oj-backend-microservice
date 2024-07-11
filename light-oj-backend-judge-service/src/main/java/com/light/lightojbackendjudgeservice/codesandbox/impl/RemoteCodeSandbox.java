@@ -44,7 +44,8 @@ public class RemoteCodeSandbox implements CodeSandbox {
          */
         String jsonStr = JSONUtil.toJsonStr(executeRequest);
         String secretKey = SecureUtil.sha256(AUTH_REQUEST_SECRET);
-        String responseStr = HttpUtil.createPost(url)
+        String responseStr = HttpUtil.createPost(url + "/executeCode")
+                // POST 请求
                 .header(AUTH_REQUEST_HEADER, secretKey)
                 .body(jsonStr)
                 .execute()
