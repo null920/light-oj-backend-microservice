@@ -1,5 +1,6 @@
 package com.light.lightojbackendquestionservice.controller.inner;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.light.lightojbackendmodel.model.entity.Question;
 import com.light.lightojbackendmodel.model.entity.QuestionSubmit;
 import com.light.lightojbackendquestionservice.service.QuestionService;
@@ -40,5 +41,14 @@ public class QuestionInnerController implements QuestionFeignClient {
     @PostMapping("/question_submit/update")
     public boolean updateQuestionSubmitById(@RequestBody QuestionSubmit questionSubmit) {
         return questionSubmitService.updateById(questionSubmit);
+    }
+
+    @Override
+    @PostMapping("/update/accepted_num")
+    public boolean updateAcceptedNumById(long questionId) {
+        UpdateWrapper<Question> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", questionId);
+        updateWrapper.setSql("accepted_num = accepted_num + 1");
+        return questionService.update(updateWrapper);
     }
 }

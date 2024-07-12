@@ -2,6 +2,7 @@ package com.light.lightojbackendquestionservice.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.light.lightojbackendcommon.common.ErrorCode;
@@ -91,6 +92,10 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "题目提交失败");
         }
         Long questionSubmitId = questionSubmit.getId();
+        UpdateWrapper<Question> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", questionId);
+        updateWrapper.setSql("submit_num = submit_num + 1");
+        questionService.update(updateWrapper);
         // 提交题目完成后，异步执行判题
         messageProducer.sendMessage("code_exchange", "null_routingKey", String.valueOf(questionSubmitId));
 //        CompletableFuture.runAsync(() -> {
